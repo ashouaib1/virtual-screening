@@ -1,0 +1,34 @@
+Requirements
+============
+ * Linux (CentOS 7.3 or similar)
+ * Autodock Vina
+ * MGLTools 1.5 or above
+ * Python 2.7
+ * PyMol [Optional]
+
+Virtual Screening Guide
+=======================
+
+## Download your dataset from the ZINC15 database in the directory labelled 'dump'.
+ * cd dump
+ * ./ZINC-downloader-3D-pdbqt.gz.wget
+
+## Prepare the receptor files for your virtual screening
+ * cd vina_files
+ * (EDIT the config.txt file to match your case, see Autodock Vina guide for details)
+
+## Prepare the ligand files for your virtual screeing
+ * ./pdbqt_split.sh
+
+## Run Virtual Screening
+ * ./run_screening.sh 8
+ * (NOTE: "8" indicates the number of cores to use and can be adjusted)
+
+## Create a result table from your screening.
+ * cd analysis
+ * python screen_results.py 100 > top_100_scores.txt
+ * (NOTE: Above command will provide a table of top 100 scores from the screening and can be adjusted)
+
+## Optional: Visualize your results from the 'analysis' directory.
+ * /u1/ashouaib/pymol/pymol `awk '{print $3}' top_100_scores.txt` ../vina_files/receptor.pdb
+
