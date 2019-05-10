@@ -27,7 +27,7 @@ Virtual Screening Guide
 ## Create a result table from your screening.
  * cd analysis
  * python screen_results.py 100 > top_100_scores.txt
- * (NOTE: Above command will provide a table of top 100 scores from the screening and can be adjusted)
+ * (NOTE: Above command will provide a table of top 100 scores from the screening. The number can be adjusted)
 
 ## Optional: Visualize your results from the 'analysis' directory.
  * /u1/ashouaib/pymol/pymol `awk '{print $3}' top_100_scores.txt` ../vina_files/receptor.pdb
