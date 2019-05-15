@@ -17,7 +17,7 @@ Virtual Screening Guide
  * cd vina_files
  * (EDIT the config.txt file to match your case, see Autodock Vina guide for details)
 
-## Prepare the ligand files for your virtual screeing
+## Clean and prepare the dataset files for your virtual screening
  * ./pdbqt_split.sh
 
 ## Run Virtual Screening
