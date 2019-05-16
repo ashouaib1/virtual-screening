@@ -9,8 +9,8 @@ Requirements
 Virtual Screening Guide
 =======================
 
-## Download your dataset from the ZINC15 database in the directory labelled 'dump'.
- * cd dump
+## Download your dataset from the ZINC15 database in the directory labelled 'downloads'.
+ * cd downloads
  * ./ZINC-downloader-3D-pdbqt.gz.wget
 
 ## Prepare the receptor files for your virtual screening
