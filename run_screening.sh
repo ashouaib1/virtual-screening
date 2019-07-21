@@ -1,17 +1,16 @@
 #! /bin/bash
 
-### Edit the following variables as you see fit.
+### The following variables should be edited based on the project.
 
 dataset='/userdata1/ashouaib/dataset.txt'
 
-n_ligands=8486230
-n_cores=400
+n_ligands=22812
+n_cores=12
 
-### Everything below is the main body of the script.
-### First we need to set up the virtual screening.
+### Below is the main body of the script.
 
-modulo=$((n_ligands%n_cores)) ## 230
-increment=$(((n_ligands-modulo)/n_cores)) ## 21215
+modulo=$((n_ligands%n_cores))
+increment=$(((n_ligands-modulo)/n_cores))
 
 start_lig=1
 end_lig=$increment
