@@ -1,35 +1,42 @@
 #! /bin/bash
 
-mkdir screen
-mkdir screen/results
-cd lig_files/
+### Edit the following variables as you see fit.
 
-# We want the total number of ligands in our screening
+dataset='/userdata1/ashouaib/dataset.txt'
 
-nfile=$(eval "ls -1 | wc -l")
-nfile_aggre=$((nfile/$1))
+n_ligands=8486230
+n_cores=400
 
-echo "processing $nfile ligands"
+### Everything below is the main body of the script.
+### First we need to set up the virtual screening.
 
-# Now we create directories based on the number of cores
-# and aggregate all the ligand files into these directories
-# Number of cores we are working with is the first argument ($1)
+modulo=$((n_ligands%n_cores)) ## 230
+increment=$(((n_ligands-modulo)/n_cores)) ## 21215
 
-for((proc=1;proc<=$1;proc++)); do
-    mkdir ../screen/$proc
-    mv `ls | head -$nfile_aggre` ../screen/$proc/
+start_lig=1
+end_lig=$increment
+
+for((proc=1;proc<=$n_cores;proc++));do
+
+    mkdir -p $proc
+    cd $proc
+    cp /userdata1/ashouaib/vina_files/virtual_screen.sh ./
+
+    sed -n "${start_lig},${end_lig}p" $dataset > dataset.txt
+    cd ../
+
+    ((start_lig+=$increment))
+    ((end_lig+=$increment))
+
 done
 
-mv * ../screen/$1/
-cd ../
+sed -n "${start_lig},${end_lig}p" $dataset >> ./$n_cores/dataset.txt
 
-# Now we can run the screening in each directory
+for((proc=1;proc<=$n_cores;proc++));do
 
-for((i=1;i<=$1;i++)); do
-    cp ./vina_files/virtual_screen.sh ./screen/$i/
-    cd ./screen/$i
-    nohup ./virtual_screen.sh >& screen.log&
-    cd ../../
+    cd $proc
+### qsub virtual_screen.sh dataset.txt
+    ./virtual_screen.sh dataset.txt >& log&
+    cd ../
+
 done
-
-
