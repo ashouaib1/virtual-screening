@@ -1,22 +1,31 @@
 #! /bin/bash
 
-mkdir ./lig_files/
-cp ./downloads/*/*/*.gz ./lig_files
-gunzip ./lig_files/*
-cd ./lig_files/
+### The following script is used to parse and clean the downloaded dataset from the ZINC15 database.
+### Run this script in the same directory as the 
 
-for s in ./*.xaa.pdbqt; do
-    csplit $s '/MODEL/' '{*}'
-    for i in xx*; do
-        check=$(head -c 6 $i)
-        if [[ $check == "REMARK" ]]; then
-            zinc_id=$(cat $i | head -1 | tail -c 17)
-            mv -- "$i" ./"${zinc_id}.pdbqt"
-        else
-            zinc=$(cat $i | head -2 | tail -1 | tail -c 17)
-            mv -- "$i" ./"${zinc}.pdbqt"
-        fi
-    done
+chmod u+x ./ZINC
+./ZINC
+gunzip *.gz
+
+mkdir change_names
+
+for s in *.xaa.pdbqt; do
+    check=$(head -c 6 $s)
+    if [[ $check == "REMARK" ]]; then
+        zinc_id=$(cat $s | head -1 | tail -c 17)
+        mv $s /userdata1/ashouaib/dataset/"${zinc_id}.pdbqt"
+    else
+        vina_split --input $s --ligand ./change_names/
+        cd ./change_names/
+        for i in *.pdbqt; do
+            zinc=$(cat $i | head -1 | tail -c 17)
+            mv $i /userdata1/ashouaib/dataset/"${zinc}.pdbqt"
+        done
+        cd ../
+    fi
 done
 
-rm *.xaa.pdbqt
+rm -r change_names
+rm -r *.pdbqt
+
+echo "DOCKING FILE PROCESS COMPLETE"
