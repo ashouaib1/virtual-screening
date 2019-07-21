@@ -4,7 +4,7 @@
 
 dataset='/userdata1/ashouaib/dataset.txt'
 
-n_ligands=22812
+n_ligands=$((`wc -l $dataset | awk '{print $1}'`))
 n_cores=12
 
 ### Below is the main body of the script.
