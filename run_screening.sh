@@ -2,10 +2,10 @@
 
 ### The following variables should be edited based on the project.
 
-dataset='/userdata1/ashouaib/dataset.txt'
+dataset=$1
+n_cores=$2
 
 n_ligands=$((`wc -l $dataset | awk '{print $1}'`))
-n_cores=12
 
 ### Below is the main body of the script.
 
