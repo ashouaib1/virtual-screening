@@ -10,19 +10,17 @@ Virtual Screening Guide
 =======================
 
 ## Download your dataset from the ZINC15 database in the directory labelled 'downloads'.
+## A sample script that downloads a large dataset can be found in this directory.
+## Run the 'dataset_prep.sh' script to clean and process the files for Autodock Vina.
  * cd downloads
- * ./ZINC-downloader-3D-pdbqt.gz.wget
+ * ./dataset_prep.sh
+ 
+## Create a text file containing the list of files that will be used for the virtual screening.
+ * \ls -afq ./dataset > dataset.txt
 
-## Prepare the receptor files for your virtual screening
- * cd vina_files
- * (EDIT the config.txt file to match your case, see Autodock Vina guide for details)
-
-## Clean and prepare the dataset files for your virtual screening
- * ./pdbqt_split.sh
-
-## Run Virtual Screening
- * ./run_screening.sh 8
- * (NOTE: "8" indicates the number of cores to use and can be adjusted)
+## Run Virtual Screening.
+ * ./run_screening.sh dataset.txt 12
+ * (NOTE: "12" indicates the number of cores to use and can be adjusted based on your CPU specs)
 
 ## Create a result table from your screening.
  * cd analysis
@@ -30,5 +28,5 @@ Virtual Screening Guide
  * (NOTE: Above command will provide a table of top 100 scores from the screening. The number can be adjusted)
 
 ## Optional: Visualize your results from the 'analysis' directory.
- * /u1/ashouaib/pymol/pymol `awk '{print $3}' top_100_scores.txt` ../vina_files/receptor.pdb
+ * pymol `awk '{print $3}' top_100_scores.txt` ../vina_files/receptor.pdb
 
