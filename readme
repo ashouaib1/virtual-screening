@@ -8,7 +8,6 @@ Requirements
 
 Virtual Screening Guide
 =======================
-
 ## Download your dataset from the ZINC15 database in the directory labelled 'downloads'.
 ## A sample script that downloads a large dataset can be found in this directory.
 ## Run the 'dataset_prep.sh' script to clean and process the files for Autodock Vina.
@@ -29,4 +28,3 @@ Virtual Screening Guide
 
 ## Optional: Visualize your results from the 'analysis' directory.
  * pymol `awk '{print $3}' top_100_scores.txt` ../vina_files/receptor.pdb
-
