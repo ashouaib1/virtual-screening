@@ -18,8 +18,8 @@ Virtual Screening Guide
  * \ls -afq ./dataset > dataset.txt
 
 ## Run Virtual Screening.
- * ./run_screening.sh dataset.txt 12
- * (NOTE: "12" indicates the number of cores to use and can be adjusted based on your CPU specs)
+ * ./run_screening.sh dataset.txt 320
+ * (NOTE: "320" indicates the number of cores to use and can be adjusted based on your CPU specs. A number like 320 is meant for an HPC cluster.)
 
 ## Create a result table from your screening.
  * cd analysis
