@@ -21,6 +21,10 @@ for f in $(cat $1); do
     /software/autodock_vina_1_1_2_linux_x86/bin/vina --config $config_file --receptor $recepto
 r_file --cpu 1 --ligand /userdata1/ashouaib/dataset/$f --out results/${b}_vina.pdbqt --log log
 s/${b}_vina.log
+
+    result=$(cat results/${b}_vina.pdbqt | head -2 | tail -1 | awk '{print $4}')
+    echo ${b} $result >> results.dat
+
 done
 
 echo "SCREENING DONE"
