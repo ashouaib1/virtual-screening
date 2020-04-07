@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 
+# this script is optional. If you're not comfortable with looking over all the data/results, use this.
+
 import sys
 import glob
 
