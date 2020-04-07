@@ -3,11 +3,7 @@
 import sys
 import glob
 
-# provide the path containing your results from the screening.
-
 result_path = '../screen/results/'
-
-# The below function will perform the screening.
 
 def screen(n):
 
@@ -15,13 +11,12 @@ def screen(n):
 
     for file_name in glob.glob(result_path + '*.pdbqt'):
 
-        file = open(file_name)
-        lines = file.readlines()
-        file.close()
+	with open(file_name) as file:
+	    lines = file.readlines()
 
         score = lines[1]
         result = float(score.split(':')[1].split()[0])
-
+	
 	zinc_id = lines[2]
 	molecule = zinc_id.split('=')[1].strip()
 
